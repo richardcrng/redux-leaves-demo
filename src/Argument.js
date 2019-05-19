@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Input } from 'semantic-ui-react';
 import SelectParser from './SelectParser';
+import { MdDelete } from 'react-icons/md';
 
 function Argument({ index, configArg, deleteArg }) {
   const [arg, setArg] = React.useState("");
@@ -18,6 +19,7 @@ function Argument({ index, configArg, deleteArg }) {
 
   return (
     <div style={{ margin: "10px" }}>
+      <MdDelete onClick={deleteArg} size={30} color="red" />
       <b><code>args[{index}]</code> = </b>
       <SelectParser {...{ parser, parsers, setParser }} />
       <span style={{ fontSize: "200%" }}>(</span>

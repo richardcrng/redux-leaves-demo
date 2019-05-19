@@ -40,7 +40,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
 
   const creator = _.get(actions, input)
 
-  const creatorArgs = args.filter(arg => arg).map(
+  const getArgs = () => args.filter(arg => arg).map(
     ({ arg, method }) => method(arg)
   )
 
@@ -61,7 +61,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
       <AddArgumentButton className="my-2" onClick={addArg} />
       <DispatchButton
         className="my-2"
-        onClick={() => dispatch(creator(creatorArgs))}
+        onClick={() => dispatch(creator(getArgs()))}
       />
     </>
   );
