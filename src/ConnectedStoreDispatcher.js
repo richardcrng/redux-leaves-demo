@@ -11,12 +11,11 @@ let count = 0
 function StoreDispatcher({ actions, dispatch, placeholder }) {
 
   const [input, setInput] = React.useState(placeholder);
-
   const [args, setArgs] = React.useState([])
 
   /*
     e.g. [
-      { arg, parser, key }
+      { arg, parser, method, key }
     ]
   */
 
@@ -32,6 +31,12 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
     setArgs(newArgs)
   }
 
+  const creator = _.get(actions, input)
+
+  const creatorArgs = args.filter(arg => arg).map(
+    ({ arg, method }) => method(arg)
+  )
+
   return (
     <>
       <Creator {...{ input, placeholder, setInput }} />
@@ -41,7 +46,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
       <AddArgumentButton className="my-2" onClick={addArg} />
       <DispatchButton
         className="my-2"
-        onClick={() => dispatch(_.get(actions, input)(...args))}
+        onClick={() => dispatch(creator(creatorArgs))}
       />
     </>
   );
