@@ -61,7 +61,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
       <AddArgumentButton className="my-2" onClick={addArg} />
       <DispatchButton
         className="my-2"
-        onClick={() => dispatch(creator(getArgs()))}
+        onClick={() => dispatch(creator(...getArgs()))}
       />
     </>
   );
