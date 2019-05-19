@@ -7,15 +7,17 @@ import "./styles.css";
 import ConnectedStoreState from "./ConnectedStoreState";
 import ConnectedStoreDispatcher from "./ConnectedStoreDispatcher";
 
-// Setup Redux-Leaves
+// Set up Redux Leaves
 import reduxLeaves from "redux-leaves";
 
+// You can change the inital state here
 const initialState = {
   counter: 1,
   foo: ["foo"],
   nest: { deep: {} }
 };
 
+// You can change the reducers dictionary here
 const reducersDict = {
   addOne: leafState => leafState + 1,
   addElement: (leafState, { payload }) => [...leafState, payload],

@@ -23,7 +23,11 @@ function Argument({ index, configArg, deleteArg }) {
       <b><code>args[{index}]</code> = </b>
       <SelectParser {...{ parser, parsers, setParser }} />
       <span style={{ fontSize: "200%" }}>(</span>
-      <Input value={arg} onChange={e => setArg(e.target.value)} />
+      <Input
+        onChange={e => setArg(e.target.value)}
+        placeholder="Input string to be parsed"
+        value={arg}
+      />
       <span style={{ fontSize: "200%" }}>)</span>
     </div>
   )
@@ -31,28 +35,28 @@ function Argument({ index, configArg, deleteArg }) {
 
 const parsers = [
   {
-    key: "string",
-    text: "String",
-    value: "String",
-    method: String
-  },
-  {
-    key: "object",
+    key: "JSON.parse",
     text: "JSON.parse",
     value: "JSON.parse",
     method: JSON.parse
   },
   {
-    key: "integer",
+    key: "parseFloat",
+    text: "parseFloat",
+    value: "parseFloat",
+    method: parseFloat
+  },
+  {
+    key: "parseInt",
     text: "parseInt",
     value: "parseInt",
     method: parseInt
   },
   {
-    key: "float",
-    text: "parseFloat",
-    value: "parseFloat",
-    method: parseFloat
+    key: "String",
+    text: "String",
+    value: "String",
+    method: String
   },
 ]
 
