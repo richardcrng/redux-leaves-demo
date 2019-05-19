@@ -8,7 +8,8 @@ import AddArgumentButton from "./AddArgumentButton";
 
 let count = 0
 
-const ERROR_CREATOR_NOT_A_FUNCTION = "It looks like your defined 'creator' is not a function."
+const ERROR_CREATOR_NOT_A_FUNCTION = "It looks like 'creator' is not a defined function."
+const ERROR_INPUT_DOES_NOT_INCLUDE_CREATE = "It looks like you're not using the <a href='https://redux-leaves.js.org/docs/create/creators' target='_blank'>'create' interface</a> in your action creator definition."
 
 function StoreDispatcher({ actions, dispatch, placeholder }) {
 
@@ -56,6 +57,14 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
     if (typeof creator === "function") {
       dispatch(creator(...getArgs()))
     } else {
+      handleError()
+    }
+  }
+
+  const handleError = () => {
+    if (!input.includes("create")) {
+      setError(ERROR_INPUT_DOES_NOT_INCLUDE_CREATE)
+    } else {
       setError(ERROR_CREATOR_NOT_A_FUNCTION)
     }
   }
@@ -79,7 +88,13 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
         className="my-2"
         onClick={handleDispatch}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {
+        error &&
+        <p
+          style={{ color: "red" }}
+          dangerouslySetInnerHTML={{ __html: error }}
+        />
+      }
     </>
   );
 }
