@@ -10,7 +10,7 @@ let count = 0
 
 function StoreDispatcher({ actions, dispatch, placeholder }) {
 
-  const [input, setInput] = React.useState(placeholder);
+  const [input, setInput] = React.useState("");
   const [args, setArgs] = React.useState([])
 
   /*

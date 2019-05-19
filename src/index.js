@@ -39,7 +39,7 @@ function Demo() {
         <ConnectedStoreState />
         <ConnectedStoreDispatcher
           actions={actions}
-          placeholder="counter.create.addOne"
+          placeholder="leaf.create.creatorKey"
         />
       </div>
     </Provider>
