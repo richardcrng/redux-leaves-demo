@@ -21,7 +21,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
   */
 
   const addArg = () => setArgs(prevArgs => [
-    ...prevArgs, { key: ++count }
+    ...prevArgs, { key: count++ }
   ])
 
   const configArgAt = index => argConfig => {
@@ -35,8 +35,8 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
   return (
     <>
       <Creator {...{ input, placeholder, setInput }} />
-      {args.map(({ arg, parser, key }, index) => (
-        <Argument {...{ key, arg, parser, index, configArg: configArgAt(index) }} />
+      {args.map(({ arg, parser, method, key }, index) => (
+        <Argument {...{ key, arg, parser, method, index, configArg: configArgAt(index) }} />
       ))}
       <AddArgumentButton className="my-2" onClick={addArg} />
       <DispatchButton

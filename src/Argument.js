@@ -3,41 +3,18 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import SelectParser from './SelectParser';
 
-function Argument({ index }) {
+function Argument({ index, configArg }) {
   const [arg, setArg] = React.useState("");
-  const [parser, setParser] = React.useState("String")
+  const [parser, setParser] = React.useState("String");
 
-  const parsers = [
-    {
-      key: "string",
-      text: "String",
-      value: "String",
-      method: String
-    },
-    {
-      key: "object",
-      text: "JSON.parse",
-      value: "JSON.parse",
-      method: JSON.parse
-    },
-    {
-      key: "integer",
-      text: "parseInt",
-      value: "parseInt",
-      method: parseInt
-    },
-    {
-      key: "float",
-      text: "parseFloat",
-      value: "parseFloat",
-      method: parseFloat
-    },
-  ]
-
-  const parserMethod = _.find(
+  const method = _.find(
     parsers,
     ({ value }) => parser === value
   ).method
+
+  React.useEffect(() => {
+    configArg({ arg, parser, method })
+  })
 
   return (
     <div style={{ margin: "10px" }}>
@@ -49,5 +26,32 @@ function Argument({ index }) {
     </div>
   )
 }
+
+const parsers = [
+  {
+    key: "string",
+    text: "String",
+    value: "String",
+    method: String
+  },
+  {
+    key: "object",
+    text: "JSON.parse",
+    value: "JSON.parse",
+    method: JSON.parse
+  },
+  {
+    key: "integer",
+    text: "parseInt",
+    value: "parseInt",
+    method: parseInt
+  },
+  {
+    key: "float",
+    text: "parseFloat",
+    value: "parseFloat",
+    method: parseFloat
+  },
+]
 
 export default Argument;
