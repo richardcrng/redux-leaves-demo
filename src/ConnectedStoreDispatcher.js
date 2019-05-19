@@ -3,18 +3,25 @@ import React from "react";
 import { connect } from "react-redux";
 import Creator from "./Creator";
 import Argument from "./Argument";
+import Dispatch from "./Dispatch";
 
+let count = 0
 
 function StoreDispatcher({ actions, dispatch, placeholder }) {
+
   const [input, setInput] = React.useState(placeholder);
 
   const [args, setArgs] = React.useState([])
 
   /*
     e.g. [
-      { arg, parser }
+      { arg, parser, key }
     ]
   */
+
+  const addArg = () => setArgs(prevArgs => [
+    ...prevArgs, { key: ++count }
+  ])
 
   const configArgAt = index => argConfig => {
     const newArgs = [...args]
@@ -27,12 +34,11 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
   return (
     <>
       <Creator {...{ input, placeholder, setInput }} />
-      {args.map(({ arg, parser }, index) => (
-        <Argument {...{ arg, parser, index, configArg: configArgAt(index) }} />
+      {args.map(({ arg, parser, key }, index) => (
+        <Argument {...{ key, arg, parser, index, configArg: configArgAt(index) }} />
       ))}
-      <button onClick={() => dispatch(_.get(actions, input)(...args))}>
-        Dispatch <code>creator(arg)</code> to store
-      </button>
+      <button onClick={addArg}>Add argument</button>
+      <Dispatch onClick={() => dispatch(_.get(actions, input)(...args))} />
     </>
   );
 }
