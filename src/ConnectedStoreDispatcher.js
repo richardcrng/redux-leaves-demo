@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
+import { Button } from 'semantic-ui-react';
 import Creator from "./Creator";
 import Argument from "./Argument";
 import Dispatch from "./Dispatch";
@@ -37,7 +38,7 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
       {args.map(({ arg, parser, key }, index) => (
         <Argument {...{ key, arg, parser, index, configArg: configArgAt(index) }} />
       ))}
-      <button onClick={addArg}>Add argument</button>
+      <Button className="my-2" primary onClick={addArg}>Add argument</Button>
       <Dispatch onClick={() => dispatch(_.get(actions, input)(...args))} />
     </>
   );

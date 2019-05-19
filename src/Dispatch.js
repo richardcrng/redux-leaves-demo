@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
 
 function Dispatch({ onClick }) {
   return (
-    <button onClick={onClick}>
-      Dispatch <code>creator(...args)</code> to store
-    </button>
+    <Button className="my-2" secondary onClick={onClick}>
+      <code>store.dispatch.creator(...args)</code>
+    </Button>
   )
 }
 
