@@ -1,71 +1,36 @@
 import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
-import { Input } from "semantic-ui-react"
-import SelectParser from "./SelectParser";
+import Creator from "./Creator";
+import Argument from "./Argument";
 
-const divStyle = { padding: "5px", margin: "5px" };
 
 function StoreDispatcher({ actions, dispatch, placeholder }) {
   const [input, setInput] = React.useState(placeholder);
-  const [arg, setArg] = React.useState("");
 
-  const [parser, setParser] = React.useState("String")
+  const [args, setArgs] = React.useState([])
 
-  const parsers = [
-    {
-      key: "string",
-      text: "String",
-      value: "String",
-      method: String
-    },
-    {
-      key: "object",
-      text: "JSON.parse",
-      value: "JSON.parse",
-      method: JSON.parse
-    },
-    {
-      key: "integer",
-      text: "parseInt",
-      value: "parseInt",
-      method: parseInt
-    },
-    {
-      key: "float",
-      text: "parseFloat",
-      value: "parseFloat",
-      method: parseFloat
-    },
-  ]
+  /*
+    e.g. [
+      { arg, parser }
+    ]
+  */
 
-  const parserMethod = _.find(
-    parsers,
-    ({ value }) => parser === value
-  ).method
+  const configArgAt = index => argConfig => {
+    const newArgs = [...args]
+    newArgs[index] = typeof newArgs[index] === "object"
+      ? { ...newArgs[index], ...argConfig }
+      : argConfig
+    setArgs(newArgs)
+  }
 
   return (
     <>
-      <div style={divStyle}>
-        <b>creator = actions.</b>
-        <Input
-          onChange={e => setInput(e.target.value)}
-          placeholder={placeholder}
-          value={input}
-        />
-      </div>
-      <div style={divStyle}>
-        <b>arg = </b>
-        <SelectParser
-          parsers={parsers}
-          parser={parser}
-          setParser={setParser}
-        />
-        <span style={{ fontSize: "200%" }}>(</span>
-        <Input value={arg} onChange={e => setArg(e.target.value)} />
-        <span style={{ fontSize: "200%" }}>)</span>
-      </div>
-      <button onClick={() => dispatch(_.get(actions, input)(parserMethod(arg)))}>
+      <Creator {...{ input, placeholder, setInput }} />
+      {args.map(({ arg, parser }, index) => (
+        <Argument {...{ arg, parser, index, configArg: configArgAt(index) }} />
+      ))}
+      <button onClick={() => dispatch(_.get(actions, input)(...args))}>
         Dispatch <code>creator(arg)</code> to store
       </button>
     </>
