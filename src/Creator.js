@@ -4,7 +4,7 @@ import { Input } from 'semantic-ui-react';
 function Creator({ input, placeholder, setInput }) {
   return (
     <div style={{ padding: "10px" }}>
-      <b>creator = actions.</b>
+      <b><code>creator</code> = actions.</b>
       <Input
         onChange={e => setInput(e.target.value)}
         placeholder={placeholder}

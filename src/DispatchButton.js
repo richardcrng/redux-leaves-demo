@@ -7,7 +7,7 @@ function DispatchButton({ className, onClick }) {
       {...{ className, onClick }}
       secondary
     >
-      <code>store.dispatch.creator(...args)</code>
+      <code>store.dispatch(creator(...args))</code>
     </Button>
   )
 }

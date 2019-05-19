@@ -41,7 +41,7 @@ function Argument({ index }) {
 
   return (
     <div style={{ margin: "10px" }}>
-      <b>arg = </b>
+      <b><code>args[{index}]</code> = </b>
       <SelectParser {...{ parser, parsers, setParser }} />
       <span style={{ fontSize: "200%" }}>(</span>
       <Input value={arg} onChange={e => setArg(e.target.value)} />
