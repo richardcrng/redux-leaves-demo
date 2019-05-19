@@ -31,6 +31,13 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
     setArgs(newArgs)
   }
 
+  const deleteArgAt = index => () => {
+    setArgs([
+      ...args.slice(0, index),
+      ...args.slice(index + 1)
+    ])
+  }
+
   const creator = _.get(actions, input)
 
   const creatorArgs = args.filter(arg => arg).map(
@@ -41,7 +48,15 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
     <>
       <Creator {...{ input, placeholder, setInput }} />
       {args.map(({ arg, parser, method, key }, index) => (
-        <Argument {...{ key, arg, parser, method, index, configArg: configArgAt(index) }} />
+        <Argument {...{
+          key,
+          arg,
+          parser,
+          method,
+          index,
+          configArg: configArgAt(index),
+          deleteArg: deleteArgAt(index)
+        }} />
       ))}
       <AddArgumentButton className="my-2" onClick={addArg} />
       <DispatchButton

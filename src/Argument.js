@@ -3,7 +3,7 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import SelectParser from './SelectParser';
 
-function Argument({ index, configArg }) {
+function Argument({ index, configArg, deleteArg }) {
   const [arg, setArg] = React.useState("");
   const [parser, setParser] = React.useState("String");
 
