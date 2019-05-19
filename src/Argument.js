@@ -15,7 +15,7 @@ function Argument({ index, configArg, deleteArg }) {
 
   React.useEffect(() => {
     configArg({ arg, parser, method })
-  })
+  }, [arg, parser, method])
 
   return (
     <div style={{ margin: "10px" }}>
