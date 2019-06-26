@@ -38,8 +38,8 @@ function Demo() {
   return (
     <div className="App">
       <h1>Redux-Leaves: demo</h1>
-      Try dispatching an action and watch how the store changes!
-        <div style={{ padding: "20px" }}>
+      <p>Try dispatching an action and watch how the store changes!</p>
+      <div style={{ padding: "20px" }}>
         {JSON.stringify(state, null, 2)}
       </div>
       <StoreDispatcher
