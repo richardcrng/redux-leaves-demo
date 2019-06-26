@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React from "react";
-import { connect } from "react-redux";
 import Creator from "./Creator";
 import Argument from "./Argument";
 import DispatchButton from "./DispatchButton";
@@ -99,9 +98,4 @@ function StoreDispatcher({ actions, dispatch, placeholder }) {
   );
 }
 
-const ConnectedStoreDispatcher = connect(
-  null,
-  dispatch => ({ dispatch })
-)(StoreDispatcher);
-
-export default ConnectedStoreDispatcher;
+export default StoreDispatcher

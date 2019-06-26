@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore } from 'redux'
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
 import "./styles.css";
-import ConnectedStoreState from "./ConnectedStoreState";
-import ConnectedStoreDispatcher from "./ConnectedStoreDispatcher";
+import StoreDispatcher from "./StoreDispatcher";
 
 // Set up Redux Leaves
 import reduxLeaves from "redux-leaves";
@@ -33,20 +32,28 @@ const store = createStore(reducer)
 
 // Demo
 function Demo() {
+  const dispatch = useDispatch()
+  const state = useSelector(state => state)
+
   return (
-    <Provider store={store}>
-      <div className="App">
-        <h1>Redux-Leaves: demo</h1>
-        Try dispatching an action and watch how the store changes!
-        <ConnectedStoreState />
-        <ConnectedStoreDispatcher
-          actions={actions}
-          placeholder="leaf.create.creatorKey"
-        />
+    <div className="App">
+      <h1>Redux-Leaves: demo</h1>
+      <p>Try dispatching an action and watch how the store changes!</p>
+      <div style={{ padding: "20px" }}>
+        {JSON.stringify(state, null, 2)}
       </div>
-    </Provider>
+      <StoreDispatcher
+        actions={actions}
+        dispatch={dispatch}
+        placeholder="leaf.create.creatorKey"
+      />
+    </div>
   );
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<Demo />, rootElement);
+ReactDOM.render((
+  <Provider store={store}>
+    <Demo />
+  </Provider>
+), rootElement);
